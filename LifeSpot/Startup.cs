@@ -25,11 +25,17 @@ namespace LifeSpot
 
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(endpoints => // в последнем юните странная формулировка, звучит, как-будто надо вынести маршруты в некий класс Endpoints.cs, но в 27.1.4 такое не делается, просто добавили новый endpoints
             {
                 endpoints.MapGet("/", async context =>
                 {
                     var viewPath = Path.Combine(Directory.GetCurrentDirectory(), "Views", "index.html");
+                    var html = await File.ReadAllTextAsync(viewPath);
+                    await context.Response.WriteAsync(html);
+                });
+                endpoints.MapGet("/Static/CSS/index.css", async context =>
+                {
+                    var viewPath = Path.Combine(Directory.GetCurrentDirectory(), "Static", "CSS", "index.css");
                     var html = await File.ReadAllTextAsync(viewPath);
                     await context.Response.WriteAsync(html);
                 });
