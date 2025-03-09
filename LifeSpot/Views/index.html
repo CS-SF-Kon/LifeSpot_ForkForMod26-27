@@ -4,22 +4,29 @@
     <meta charset="UTF-8">
     <title>LifeSpot</title>
     <link href="../Static/CSS/index.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../Static/JS/index.js"></script>
+    <script>
+        checkAge();
+        handleSession();
+        sessionLog();
+        const inputParseFunction = function () {
+            return document.getElementsByTagName('input')[0].value.toLowerCase();
+        }
+        setTimeout(() =>
+            alert("Нравится LifeSpot? " + '\n' + "Подпишитесь на наш Telegramm @lifespot777!"),
+            30000);
+    </script>
 </head>
 <header id="header-index">
     <h1>LifeSpot - прямые трансляции с улиц</h1>
     <p>Покажем, что происходит прямо сейчас</p>
     <p>
         <b>Поиск</b>
-        <input type="text">
+        <input type="text"  oninput="filterContent(inputParseFunction())" size=50%>
     </p>
 </header>
 <body>
     <div>
-        <!--Кнопки не нужны-->
-        <!--<a href="https://www.youtube.com/watch?v=h1wly909BYw"><button>Санкт-Петербург</button></a>
-    <a href="https://www.youtube.com/watch?v=rnXIjl_Rzy4"><button>Нью-Йорк</button></a>
-    <a href="https://www.youtube.com/watch?v=KSsfLxP-A9g"><button>Лондон</button></a>-->
-        <!--Если есть айфреймы-->
         <div class="video-container">
             <iframe width="500" height="315" src="https://www.youtube.com/embed/h1wly909BYw?si=iyx0iuShP0wpM2M6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             <h3>Санкт-Петербург, Невский проспект</h3>
@@ -36,18 +43,9 @@
         </div>
 
 
-        <aside id="sidebar">
-            <!--Будет aside внутри body или снаружи, у меня результат один и тот же. А как правильно? И если окно уменьшить по ширине, третье видео лезет вниз, а aside и footer остаются на месте и footer налезает на третье видео-->
-            <div class="navbar">
-                <a href="/"><p>Все трансляции</p></a>
-                <a href="/"><p>О проекте</p></a>
-            </div>
-        </aside>
+        <!--SIDEBAR-->
     </div>
 </body>
 
-<footer> <!--Как же я намучался с хедером и особенно с футером, когда годик-два назад делал на python flask сайтик по работе. Я, конечно же, не знал, что их можно сделать отдельными от body, и долго тыкался, чтоб футер не налезал на контейнер с основным контентом страницы-->
-    <p>LifeSpot - все права защищены</p>
-    <p>Связаться с нами: <a href="mailto:contact@lifespot.ru">contact@lifespot.ru</a></p>
-</footer>
+<!--FOOTER-->
 </html>
