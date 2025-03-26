@@ -1,23 +1,54 @@
-﻿function getReview() {
-    let review = {}
-    review["userName"] = prompt("Как Вас зовут?")
-    if (review["userName"] == null) {
+﻿function Comment() {
+    this.author = prompt("Как Вас зовут?")
+    if (this.author == null) {
+        this.empty = true
         return
     }
 
-    review["comment"] = prompt("Что Вы думаете о проекте?")
-    if (review["comment"] == null) {
+    this.text = prompt("Оставьте отзыв")
+    if (this.text == null) {
+        this.empty = true
         return
     }
 
-    review["date"] = new Date().toLocaleString()
+    this.date = new Date().toLocaleString()
+}
 
-    writeReview(review)
+function addComment() {
+    let comment = new Comment()
+    if (comment.empty) {
+        return;
+    }
+
+    let enableLikes = confirm('Разрешить пользователям оценивать Ваш отзыв?')
+
+    if (enableLikes) {
+        let review = Object.create(comment)
+        review.rate = 0;
+        writeReview(review)
+    } else {
+        writeReview(comment)
+    }
 }
 
 const writeReview = review => {
-    document.getElementsByClassName('reviews')[0].innerHTML += '    <div class="review-text">\n' + 
-        `<p> <i> <b>${review['userName']}</b>  ${review['date']}</i></p>` + // а как, блин, вводить с клавиатуры эту обратную одинарную кавычку?
-        `<p>${review['comment']}</p>` +
+    let likeCounter = '';
+    if (review.hasOwnProperty('rate')) {
+        let commentId = Math.random();
+        likeCounter += '<button id="' + commentId + '" style="border: none" onclick="addLike(this.id)">' + `❤️ ${review.rate}</button>`
+    }
+
+    document.getElementsByClassName('reviews')[0].innerHTML += '<div class="review-text">\n' +
+        `<p> <i> <b>${review['author']}</b>  ${review['date']}${likeCounter}</i></p>` + 
+        `<p>${review['text']}</p>` +
         '</div>';
+}
+
+function addLike(id) {
+    let element = document.getElementById(id);
+    let array = element.innerText.split(' ')
+    let resultNum = parseInt(array[array.length - 1], 10);
+    resultNum += 1
+    array[array.length - 1] = `${resultNum}`
+    element.innerText = array.join(' ')
 }

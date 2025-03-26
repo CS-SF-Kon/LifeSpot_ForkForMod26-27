@@ -6,9 +6,9 @@
     <link href="../Static/CSS/index.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="../Static/JS/index.js"></script>
     <script>
-        checkAge();
-        handleSession();
-        sessionLog();
+        //checkAge();
+        handleSession(logger, checker);
+        //sessionLog();
         const inputParseFunction = function () {
             return document.getElementsByTagName('input')[0].value.toLowerCase();
         }
@@ -25,6 +25,7 @@
         <input type="text"  oninput="filterContent(inputParseFunction())" size=50%>
     </p>
 </header>
+        <!--SIDEBAR-->
 <body>
     <div>
         <div class="video-container">
@@ -43,7 +44,6 @@
         </div>
 
 
-        <!--SIDEBAR-->
     </div>
 </body>
 
