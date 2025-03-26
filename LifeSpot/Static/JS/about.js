@@ -52,3 +52,74 @@ function addLike(id) {
     array[array.length - 1] = `${resultNum}`
     element.innerText = array.join(' ')
 }
+
+window.onload = function () { // иначе ругается на то, что кнопки, слайдеры являются null, потому что DOM загружается после срабатывания скрипта
+    const slider = document.querySelector('.slider');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    const slides = document.querySelectorAll('.slider img');
+
+    let currentIndex = 0;
+    let isDragging = false;
+    let stratPos = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateSlider();
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < slides.length - 1) {
+            currentIndex++;
+            updateSlider();
+        }
+    });
+
+    slider.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startPos = e.clientX;
+        slider.classList.add('dragging');
+    });
+
+    slider.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const currentPosition = e.clientX;
+        const diff = currentPosition - startPos;
+        currentTranslate = prevTranslate + diff;
+        slider.style.transform = `translateX(${currentTranslate}px)`;
+    });
+
+    slider.addEventListener('mouseup', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        slider.classList.remove('dragging');
+
+        const movedBy = currentTranslate - prevTranslate;
+        if (movedBy < -100 && currentIndex < slides.length - 1) {
+            currentIndex++;
+        } else if (movedBy > 100 && currentIndex > 0) {
+            currentIndex--;
+        }
+
+        updateSlider();
+    });
+
+    slider.addEventListener('mouseleave', () => {
+        if (isDragging) {
+            isDragging = false;
+            updateSlider();
+        }
+    });
+
+    function updateSlider() {
+        prevTranslate = -currentIndex * slider.offsetWidth;
+        slider.style.transform = `translateX(${prevTranslate}px)`;
+        currentTranslate = prevTranslate;
+    }
+}
+
+

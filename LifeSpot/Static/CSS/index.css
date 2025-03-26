@@ -74,3 +74,46 @@ input:focus {
     padding-left: 1%;
     padding-top: 1%;
 }
+
+.slider-container {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease;
+    cursor: grab;
+}
+
+.slider img {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.slider.dragging {
+    cursor: grabbing;
+    transition: none;
+}
+
+.prev-btn, .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.prev-btn { 
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
